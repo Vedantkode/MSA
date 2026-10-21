@@ -1,0 +1,10 @@
+{
+  "description": "Designed for Indian investors, this financial advisory platform offers market updates, IPO information, and educational resources to enhance stock market knowledge.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
