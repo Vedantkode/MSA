@@ -139,40 +139,89 @@ function Logo({ inverse = false }: { inverse?: boolean }) {
     <a
       href="#home"
       className="group flex items-center gap-3"
-      aria-label="MSA Advisory home"
+      aria-label="Mr Stock Advisor home"
     >
-      <span className="relative flex size-10 items-center justify-center overflow-hidden rounded-xl bg-blue-600 shadow-md shadow-blue-600/20">
-        <svg viewBox="0 0 36 36" className="size-8 text-white" fill="none">
-          <path
-            d="M7 24V12l6 6 5-9 5 9 6-8v14"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      {/* Logo 3 Vector Emblem */}
+      <span className="relative flex size-12 shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        <svg viewBox="0 0 100 100" className="size-12" fill="none">
+          <defs>
+            <linearGradient id="goldCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F59E0B" />
+              <stop offset="30%" stopColor="#FDE047" />
+              <stop offset="70%" stopColor="#D97706" />
+              <stop offset="100%" stopColor="#B45309" />
+            </linearGradient>
+            <linearGradient id="goldArrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#D97706" />
+              <stop offset="40%" stopColor="#F59E0B" />
+              <stop offset="70%" stopColor="#FDE047" />
+              <stop offset="100%" stopColor="#EA580C" />
+            </linearGradient>
+            <linearGradient id="barLight" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#3B82F6" />
+              <stop offset="100%" stopColor="#60A5FA" />
+            </linearGradient>
+            <linearGradient id="barDark" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#1D4ED8" />
+              <stop offset="100%" stopColor="#2563EB" />
+            </linearGradient>
+            <filter id="logoShadow" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.25" />
+            </filter>
+          </defs>
+
+          {/* Outer Golden Ring */}
+          <circle
+            cx="48"
+            cy="52"
+            r="32"
+            stroke="url(#goldCircleGrad)"
+            strokeWidth="6.5"
+            fill="none"
           />
+
+          {/* Bar 1 (Left - Shortest) 3D Pillars */}
+          <path d="M36 68 V38 L40 36 V68 Z" fill="url(#barDark)" />
+          <path d="M40 68 V36 L44 34.5 V68 Z" fill="url(#barLight)" />
+
+          {/* Bar 2 (Middle - Medium) 3D Pillars */}
+          <path d="M46 68 V28 L50 26 V68 Z" fill="url(#barDark)" />
+          <path d="M50 68 V26 L54 24.5 V68 Z" fill="url(#barLight)" />
+
+          {/* Bar 3 (Right - Tallest) 3D Pillars */}
+          <path d="M56 68 V19 L60 17 V68 Z" fill="url(#barDark)" />
+          <path d="M60 68 V17 L64 15.5 V68 Z" fill="url(#barLight)" />
+
+          {/* Dynamic Lightning Growth Arrow Surging Upward */}
           <path
-            d="M7 28h22"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            opacity=".55"
+            d="M24 67 L44 48 L40 55 L68 34 L78 28 L73 39 L65 37 L48 57 L52 50 Z"
+            fill="url(#goldArrowGrad)"
+            filter="url(#logoShadow)"
+          />
+          {/* Arrowhead precision tip */}
+          <polygon
+            points="70,25 86,22 81,38 76,33 70,36"
+            fill="url(#goldArrowGrad)"
+            filter="url(#logoShadow)"
           />
         </svg>
       </span>
-      <span>
+
+      {/* Brand Name Lockup */}
+      <span className="flex flex-col">
         <span
-          className={`block text-lg font-extrabold leading-none tracking-tight ${
+          className={`text-lg font-black tracking-tight leading-none ${
             inverse ? "text-white" : "text-navy-950"
           }`}
         >
-          MSA <span className="text-blue-600">Advisory</span>
+          MR STOCK <span className="text-blue-600">ADVISOR</span>
         </span>
         <span
-          className={`mt-1 block text-[10px] font-bold uppercase tracking-[0.2em] ${
-            inverse ? "text-slate-400" : "text-slate-500"
+          className={`mt-1.5 block text-[10px] font-extrabold uppercase tracking-[0.2em] ${
+            inverse ? "text-amber-400" : "text-amber-600"
           }`}
         >
-          Learn · Understand · Grow
+          Invest · Learn · Grow
         </span>
       </span>
     </a>
@@ -189,16 +238,25 @@ const navItems = [
   ["Enquiry", "enquiry"],
 ]
 
+const WHATSAPP_PHONE = "918299569548"
+const WHATSAPP_COURSES_MESSAGE = "hi I want to know About your courses."
+const WHATSAPP_COURSES_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_COURSES_MESSAGE)}`
+const ENQUIRY_EMAIL = "vedantpandey737@gmail.com"
+
 function Button({
   children,
   href,
   variant = "primary",
   className = "",
+  target,
+  rel,
 }: {
   children: ReactNode
   href: string
   variant?: "primary" | "secondary" | "light" | "whatsapp"
   className?: string
+  target?: string
+  rel?: string
 }) {
   const styles = {
     primary:
@@ -213,6 +271,8 @@ function Button({
   return (
     <a
       href={href}
+      target={target}
+      rel={rel}
       className={`inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all hover:-translate-y-0.5 ${styles[variant]} ${className}`}
     >
       {children}
@@ -242,7 +302,9 @@ function Header() {
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
           <a
-            href="#enquiry"
+            href={WHATSAPP_COURSES_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex size-11 items-center justify-center rounded-xl border border-emerald-200 text-emerald-600 transition hover:bg-emerald-50"
             aria-label="Contact on WhatsApp"
           >
@@ -274,6 +336,15 @@ function Header() {
           ))}
           <Button href="#enquiry" className="mt-4 w-full">
             Open Demat Account
+          </Button>
+          <Button
+            href={WHATSAPP_COURSES_URL}
+            variant="whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 w-full"
+          >
+            <Icon name="whatsapp" className="size-4" /> Chat on WhatsApp
           </Button>
         </nav>
       )}
@@ -511,18 +582,63 @@ const services = [
 ] as [IconName, string, string][]
 
 function App() {
-  const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [statusMessage, setStatusMessage] = useState("")
   const [ipoGroup, setIpoGroup] = useState<"upcoming" | "past">("upcoming")
-  function submitEnquiry(e: FormEvent<HTMLFormElement>) {
+
+  async function submitEnquiry(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSent(true)
-    const data = new FormData(e.currentTarget)
-    const message = `Hello MSA Advisory, I am ${data.get("name")}. I would like help with ${data.get("type")}. ${data.get("message") || ""}`
-    window.open(
-      `https://wa.me/?text=${encodeURIComponent(message)}`,
-      "_blank",
-      "noopener,noreferrer",
-    )
+    setSubmitting(true)
+    setSubmitStatus("idle")
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    const name = data.get("name") as string
+    const mobile = data.get("mobile") as string
+    const email = data.get("email") as string
+    const type = data.get("type") as string
+    const message = (data.get("message") as string) || "No additional message provided."
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${ENQUIRY_EMAIL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          "Full Name": name,
+          "Mobile Number": mobile,
+          "Email Address": email,
+          "Enquiry Type": type,
+          Message: message,
+          _subject: `New MSA Advisory Enquiry from ${name} (${type})`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setStatusMessage(
+          "Thank you! Your enquiry has been submitted successfully. We will get back to you shortly.",
+        )
+        form.reset()
+      } else {
+        setSubmitStatus("error")
+        setStatusMessage(
+          "Something went wrong while submitting your enquiry. Please try again or reach out to us directly on WhatsApp.",
+        )
+      }
+    } catch {
+      setSubmitStatus("error")
+      setStatusMessage(
+        "Unable to send your enquiry right now. Please check your connection or contact us directly on WhatsApp.",
+      )
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -710,7 +826,12 @@ function App() {
                 <Button href="#enquiry" variant="light">
                   <Icon name="mail" className="size-4" /> Email Updates
                 </Button>
-                <Button href="#enquiry" variant="whatsapp">
+                <Button
+                  href={WHATSAPP_COURSES_URL}
+                  variant="whatsapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Icon name="whatsapp" className="size-4" /> WhatsApp Updates
                 </Button>
               </div>
@@ -925,8 +1046,10 @@ function App() {
                   </h3>
                 </div>
                 <Button
-                  href="#enquiry"
+                  href={WHATSAPP_COURSES_URL}
                   variant="whatsapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-8 self-start"
                 >
                   <Icon name="whatsapp" /> Chat With Us
@@ -947,15 +1070,14 @@ function App() {
                 Have a question? Let’s talk.
               </h2>
               <p className="mt-5 max-w-md leading-7 text-slate-300">
-                Share your details and review the pre-filled message before
-                choosing to send it on WhatsApp. No message is sent
-                automatically.
+                Share your details and our team will get in touch with you promptly
+                via email or phone. Your information is kept completely private.
               </p>
               <div className="mt-10 space-y-4">
                 {[
                   ["check", "Simple, guided assistance"],
-                  ["check", "No automated WhatsApp delivery"],
-                  ["check", "Your consent matters"],
+                  ["check", "Prompt response to your queries"],
+                  ["check", "Your privacy and consent matter"],
                 ].map(([icon, text]) => (
                   <div
                     key={text}
@@ -1034,20 +1156,61 @@ function App() {
                   type="checkbox"
                   className="mt-0.5 size-4 accent-blue-600"
                 />
-                I consent to being contacted regarding this enquiry. I
-                understand that I will review the WhatsApp message before
-                sending it.
+                I consent to being contacted regarding this enquiry via email or phone.
               </label>
               <button
                 type="submit"
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700"
+                disabled={submitting}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Submit Enquiry <Icon name="arrow" className="size-4" />
+                {submitting ? (
+                  <>
+                    <svg
+                      className="size-4 animate-spin text-white"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Sending Enquiry...
+                  </>
+                ) : (
+                  <>
+                    Submit Enquiry <Icon name="arrow" className="size-4" />
+                  </>
+                )}
               </button>
-              {sent && (
-                <p className="mt-4 rounded-lg bg-emerald-50 p-3 text-center text-xs font-bold text-emerald-700">
-                  Your WhatsApp draft is ready for review in a new tab.
-                </p>
+              {submitStatus === "success" && (
+                <div className="mt-4 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white">
+                    <Icon name="check" className="size-4" />
+                  </span>
+                  <p className="text-xs font-semibold leading-5 text-emerald-800">
+                    {statusMessage}
+                  </p>
+                </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="mt-4 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-900">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white">
+                    <Icon name="close" className="size-3.5" />
+                  </span>
+                  <p className="text-xs font-semibold leading-5 text-red-800">
+                    {statusMessage}
+                  </p>
+                </div>
               )}
             </form>
           </div>
@@ -1061,12 +1224,12 @@ function App() {
                   align="left"
                   eyebrow="Contact us"
                   title="We’re here to help"
-                  body="Reach out during business hours using the placeholder details below. Replace these with verified company contact information before launch."
+                  body="Reach out during business hours using our official contact details below. We are here to assist you."
                 />
                 <div className="space-y-5">
                   {[
-                    ["phone", "Phone", "+91 XXXXX XXXXX"],
-                    ["mail", "Business email", "hello@msaadvisory.in"],
+                    ["phone", "Phone", "+91 82995 69548"],
+                    ["mail", "Business email", "Kanpurmoneymarket@gmail.com"],
                     [
                       "map",
                       "Office address",
@@ -1088,7 +1251,13 @@ function App() {
                     </div>
                   ))}
                 </div>
-                <Button href="#enquiry" variant="whatsapp" className="mt-8">
+                <Button
+                  href={WHATSAPP_COURSES_URL}
+                  variant="whatsapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8"
+                >
                   <Icon name="whatsapp" /> Chat With Us
                 </Button>
               </div>
@@ -1154,17 +1323,17 @@ function App() {
           <div>
             <h3 className="font-bold text-white">Contact</h3>
             <div className="mt-5 space-y-4 text-sm">
-              <p className="flex gap-2">
+              <a href="tel:+918299569548" className="flex items-center gap-2 hover:text-white transition">
                 <Icon name="phone" className="size-4 shrink-0" />
-                +91 XXXXX XXXXX
-              </p>
-              <p className="flex gap-2">
+                +91 82995 69548
+              </a>
+              <a href="mailto:Kanpurmoneymarket@gmail.com" className="flex items-center gap-2 hover:text-white transition">
                 <Icon name="mail" className="size-4 shrink-0" />
-                hello@msaadvisory.in
-              </p>
+                Kanpurmoneymarket@gmail.com
+              </a>
               <p className="flex gap-2">
                 <Icon name="map" className="size-4 shrink-0" />
-                Verified office address placeholder
+                Verified office address, City, India
               </p>
             </div>
           </div>
@@ -1187,7 +1356,9 @@ function App() {
         </div>
       </footer>
       <a
-        href="#enquiry"
+        href={WHATSAPP_COURSES_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         className="fixed bottom-5 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-900/20 transition hover:scale-105 hover:bg-emerald-600"
         aria-label="Chat with us on WhatsApp"
       >
